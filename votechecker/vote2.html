@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECI - Vote Eligibility Checker</title>
+    <style>
+        /* Modern Reset */
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Background Image with Overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* The Card Container */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 380px;
+            border-top: 5px solid #ff9933; /* Saffron color from Indian Flag */
+        }
+
+        .eci-logo {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #06038D; /* Navy Blue from Ashoka Chakra */
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+
+        p.subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Input Styling */
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #128807; /* Green from Indian Flag */
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #06038D;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #04025a;
+            letter-spacing: 1px;
+        }
+
+        /* Result Text Styling */
+        #result {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .success { color: #128807; background: #e8f5e9; border: 1px solid #c8e6c9; }
+        .error { color: #d32f2f; background: #ffebee; border: 1px solid #ffcdd2; }
+        .warning { color: #f57c00; background: #fff3e0; border: 1px solid #ffe0b2; }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Voter Eligibility</h2>
+        <p class="subtitle">Election Commission of India Portal</p>
+        
+        <input type="number" id="age" placeholder="Enter your age (e.g. 18)">
+        <button onclick="checkVote()">Verify Status</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkVote() {
+            let ageInput = document.getElementById("age").value;
+            let resultDisplay = document.getElementById("result");
+            
+            // Reset styles
+            resultDisplay.className = "";
+            resultDisplay.innerHTML = "";
+
+            if (ageInput === "") {
+                resultDisplay.innerHTML = "⚠️ Please enter your age";
+                resultDisplay.classList.add("warning");
+                return;
+            }
+
+            let age = Number(ageInput);
+
+            if (age < 0 || age > 120) {
+                resultDisplay.innerHTML = "🚫 Please enter a valid age";
+                resultDisplay.classList.add("error");
+            } else if (age >= 18) {
+                resultDisplay.innerHTML = "✅ You are eligible to vote!";
+                resultDisplay.classList.add("success");
+            } else {
+                let wait = 18 - age;
+                resultDisplay.innerHTML = "❌ Not eligible. Wait " + wait + " more year(s).";
+                resultDisplay.classList.add("error");
+            }
+        }    
+    </script>
+</body>
+</html>
